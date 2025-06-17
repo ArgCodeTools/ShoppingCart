@@ -1,4 +1,4 @@
-using ShoppingCart.Application.Services;
+using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Infrastructure.Models;
 using ShoppingCart.Infrastructure.Services;
 

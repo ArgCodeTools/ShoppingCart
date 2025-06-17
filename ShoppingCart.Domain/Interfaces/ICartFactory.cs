@@ -5,7 +5,7 @@ namespace ShoppingCart.Domain.Interfaces;
 /// <summary>
 /// Factory para crear carritos según el tipo de usuario y fechas especiales.
 /// </summary>
-public interface IShoppingCartFactory
+public interface ICartFactory
 {
-    ShoppingCartBase CreateCart(User user, bool isSpecialDate);
+    CartBase CreateCart(User user, bool isSpecialDate);
 }

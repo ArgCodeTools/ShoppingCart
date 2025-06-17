@@ -1,6 +1,6 @@
 ﻿namespace ShoppingCart.Domain.Entities.Carts;
 
-public class CommonCart : ShoppingCartBase
+public class CommonCart : CartBase
 {
     protected override decimal CalculateTotalWithDiscount(decimal subtotal)
     {

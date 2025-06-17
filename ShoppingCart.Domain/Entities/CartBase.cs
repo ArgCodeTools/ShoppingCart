@@ -3,7 +3,7 @@
 /// <summary>
 /// Clase base para el carrito de compras. Contiene la lógica común para agregar, eliminar y actualizar items.
 /// </summary>
-public abstract class ShoppingCartBase
+public abstract class CartBase
 {
     protected List<CartItem> _items = new List<CartItem>();
 

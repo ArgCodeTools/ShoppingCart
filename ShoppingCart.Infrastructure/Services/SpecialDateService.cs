@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using ShoppingCart.Application.Services;
+using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Infrastructure.Models;
 
 namespace ShoppingCart.Infrastructure.Services;

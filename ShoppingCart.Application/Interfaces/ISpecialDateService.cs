@@ -1,4 +1,4 @@
-﻿namespace ShoppingCart.Application.Services;
+﻿namespace ShoppingCart.Application.Interfaces;
 
 public interface ISpecialDateService
 {
