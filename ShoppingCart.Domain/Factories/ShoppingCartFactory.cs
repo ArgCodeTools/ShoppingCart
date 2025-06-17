@@ -1,6 +1,8 @@
 ﻿using ShoppingCart.Domain.Entities;
 using ShoppingCart.Domain.Entities.Carts;
 using ShoppingCart.Domain.Enums;
+using ShoppingCart.Domain.Interfaces;
+
 namespace ShoppingCart.Domain.Factories;
 
 public class ShoppingCartFactory : IShoppingCartFactory
