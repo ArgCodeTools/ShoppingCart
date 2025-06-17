@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShoppingCart.Application.DTOs.Requests;
+namespace ShoppingCart.Contracts.Requests;
 
-public class GetMostExpensiveProductsRequest
+public class CreateCartRequest
 {
     [Required(ErrorMessage = "El DNI del usuario es obligatorio")]
     [Range(1, double.MaxValue, ErrorMessage = "El DNI debe ser mayor a 0")]

@@ -1,4 +1,4 @@
-﻿namespace ShoppingCart.Application.DTOs.Responses;
+﻿namespace ShoppingCart.Contracts.Responses;
 
 public class CreateCartResponse
 {

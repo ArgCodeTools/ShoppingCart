@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ShoppingCart.Application.DTOs;
-using ShoppingCart.Application.DTOs.Requests;
-using ShoppingCart.Application.DTOs.Responses;
+using ShoppingCart.Application.DTOs.Inputs;
+using ShoppingCart.Application.DTOs.Outputs;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.Interfaces.Repositories;
 using ShoppingCart.Domain.Interfaces;
@@ -36,11 +36,11 @@ public class CartService : ICartService
         _mapper = mapper;
     }
 
-    public async Task<CreateCartResponse> CreateCartAsync(CreateCartRequest request)
+    public async Task<CreateCartOutput> CreateCartAsync(CreateCartInput input)
     {
-        await _entityValidationService.ValidateUserExistsAsync(request.UserDni);
+        await _entityValidationService.ValidateUserExistsAsync(input.UserDni);
 
-        var user = await _userRepository.GetByDniAsync(request.UserDni);
+        var user = await _userRepository.GetByDniAsync(input.UserDni);
         
         var isSpecialDate = _specialDateService.IsSpecialDate();
         
@@ -48,7 +48,7 @@ public class CartService : ICartService
         
         var createdCart = await _cartRepository.CreateAsync(cart);
 
-        return new CreateCartResponse
+        return new CreateCartOutput
         {
             CartId = createdCart.Id
         };
@@ -61,33 +61,33 @@ public class CartService : ICartService
         return await _cartRepository.DeleteAsync(cartId);
     }
 
-    public async Task<CartDto> AddProductToCartAsync(AddProductToCartRequest request)
+    public async Task<CartDto> AddProductToCartAsync(AddProductToCartInput input)
     {
-        await _entityValidationService.ValidateCartExistsAsync(request.CartId);
-        await _entityValidationService.ValidateProductExistsAsync(request.ProductId);
+        await _entityValidationService.ValidateCartExistsAsync(input.CartId);
+        await _entityValidationService.ValidateProductExistsAsync(input.ProductId);
 
-        var cart = await _cartRepository.GetByIdAsync(request.CartId);
-        var product = await _productRepository.GetByIdAsync(request.ProductId);
+        var cart = await _cartRepository.GetByIdAsync(input.CartId);
+        var product = await _productRepository.GetByIdAsync(input.ProductId);
 
-        cart!.AddItem(product!, request.Quantity);
+        cart!.AddItem(product!, input.Quantity);
 
         var updatedCart = await _cartRepository.UpdateAsync(cart);
 
         return _mapper.Map<CartDto>(updatedCart);
     }
 
-    public async Task<CartDto> RemoveProductFromCartAsync(RemoveProductFromCartRequest request)
+    public async Task<CartDto> RemoveProductFromCartAsync(RemoveProductFromCartInput input)
     {
-        await _entityValidationService.ValidateCartExistsAsync(request.CartId);
-        await _entityValidationService.ValidateProductExistsAsync(request.ProductId);
+        await _entityValidationService.ValidateCartExistsAsync(input.CartId);
+        await _entityValidationService.ValidateProductExistsAsync(input.ProductId);
 
-        var cart = await _cartRepository.GetByIdAsync(request.CartId);
-        var product = await _productRepository.GetByIdAsync(request.ProductId);
+        var cart = await _cartRepository.GetByIdAsync(input.CartId);
+        var product = await _productRepository.GetByIdAsync(input.ProductId);
 
         var removed = cart!.RemoveItem(product!);
         if (!removed)
         {
-            throw new ArgumentException($"El producto con ID {request.ProductId} no está en el carrito");
+            throw new ArgumentException($"El producto con ID {input.ProductId} no está en el carrito");
         }
 
         var updatedCart = await _cartRepository.UpdateAsync(cart);
@@ -104,11 +104,11 @@ public class CartService : ICartService
         return _mapper.Map<CartDto>(cart);
     }
 
-    public async Task<List<ProductDto>> GetMostExpensiveProductsAsync(GetMostExpensiveProductsRequest request)
+    public async Task<List<ProductDto>> GetMostExpensiveProductsAsync(GetMostExpensiveProductsInput input)
     {
-        await _entityValidationService.ValidateUserExistsAsync(request.UserDni);
+        await _entityValidationService.ValidateUserExistsAsync(input.UserDni);
 
-        var mostExpensiveProducts = await _productRepository.GetMostExpensiveByUserAsync(request.UserDni);
+        var mostExpensiveProducts = await _productRepository.GetMostExpensiveByUserAsync(input.UserDni);
 
         return _mapper.Map<List<ProductDto>>(mostExpensiveProducts);
     }
