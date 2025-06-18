@@ -4,6 +4,6 @@ namespace ShoppingCart.Application.Interfaces.Repositories;
 
 public interface IUserRepository
 {
-    Task<User?> GetByDniAsync(double dni);
-    Task<bool> ExistsAsync(double dni);
+    Task<User?> GetByDniAsync(long dni);
+    Task<bool> ExistsAsync(long dni);
 }

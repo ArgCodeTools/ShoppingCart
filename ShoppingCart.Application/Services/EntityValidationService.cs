@@ -29,7 +29,7 @@ public class EntityValidationService : IEntityValidationService
         }
     }
 
-    public async Task ValidateUserExistsAsync(double userDni)
+    public async Task ValidateUserExistsAsync(long userDni)
     {
         var exists = await _userRepository.ExistsAsync(userDni);
         if (!exists)

@@ -13,14 +13,14 @@ public class UserRepository : IUserRepository
         _userMapper = userMapper;
     }
 
-    public async Task<bool> ExistsAsync(double dni)
+    public async Task<bool> ExistsAsync(long dni)
     {
         var result = await _userMapper.ExistsAsync(dni);
 
         return result;
     }
 
-    public async Task<User?> GetByDniAsync(double dni)
+    public async Task<User?> GetByDniAsync(long dni)
     {
         var result = await _userMapper.GetUserByDniAsync(dni);
 

@@ -30,7 +30,7 @@ internal class CartMapper : ICartMapper
         var parameters = new DynamicParameters();
         parameters.Add("p_CartId", cartId);
 
-        var products = await _executor.QueryAsync<ProductDBResult>("SP_Cart_GetItems", parameters);
+        var products = await _executor.QueryAsync<ProductDBResult>("SP_CartItem_GetByCartId", parameters);
 
         return products;
     }
@@ -69,7 +69,7 @@ internal class CartMapper : ICartMapper
         parameters.Add("p_CartId", cartId);
         parameters.Add("p_ProductId", productId);
 
-        await _executor.ExecuteAsync("SP_Cart_AddItem", parameters);
+        await _executor.ExecuteAsync("SP_CartItem_Add", parameters);
     }
 
     public async Task DeleteItemAsync(int cartId, int productId)
@@ -78,6 +78,6 @@ internal class CartMapper : ICartMapper
         parameters.Add("p_CartId", cartId);
         parameters.Add("p_ProductId", productId);
 
-        await _executor.ExecuteAsync("SP_Cart_RemoveItem", parameters);
+        await _executor.ExecuteAsync("SP_CartItem_Remove", parameters);
     }
 }

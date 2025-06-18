@@ -11,5 +11,5 @@ public interface ICartService
     Task<CartDto> AddProductToCartAsync(AddProductToCartInput input);
     Task<CartDto> RemoveProductFromCartAsync(RemoveProductFromCartInput input);
     Task<CartDto> GetCartStatusAsync(int cartId);
-    Task<List<ProductDto>> GetMostExpensiveProductsAsync(GetMostExpensiveProductsInput input);
+    Task<IEnumerable<ProductDto>> GetMostExpensiveProductsAsync(GetMostExpensiveProductsInput input);
 }

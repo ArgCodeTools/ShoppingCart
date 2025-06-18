@@ -2,5 +2,5 @@
 
 public class GetMostExpensiveProductsInput
 {
-    public double UserDni { get; set; }
+    public long UserDni { get; set; }
 }

@@ -23,7 +23,7 @@ public class UserMapper : IUserMapper
         return user;
     }
 
-    public async Task<bool> ExistsAsync(double dni)
+    public async Task<bool> ExistsAsync(long dni)
     {
         var parameters = new DynamicParameters();
         parameters.Add("p_Dni", dni);
@@ -31,7 +31,7 @@ public class UserMapper : IUserMapper
         return await _executor.QueryFirstOrDefaultAsync<bool>("SP_User_Exists", parameters);
     }
 
-    public async Task<User?> GetUserByDniAsync(double dni)
+    public async Task<User?> GetUserByDniAsync(long dni)
     {
         var parameters = new DynamicParameters();
         parameters.Add("p_UserId", dni);

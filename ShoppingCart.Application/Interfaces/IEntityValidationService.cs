@@ -3,6 +3,6 @@
 public interface IEntityValidationService
 {
     Task ValidateCartExistsAsync(int cartId);
-    Task ValidateUserExistsAsync(double userDni);
+    Task ValidateUserExistsAsync(long userDni);
     Task ValidateProductExistsAsync(int productId);
 }

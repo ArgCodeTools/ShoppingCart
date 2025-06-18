@@ -1,7 +1,6 @@
 ﻿using ShoppingCart.Application.Interfaces.Repositories;
 using ShoppingCart.Domain.Entities;
 using ShoppingCart.Infrastructure.Interfaces;
-using System.Net;
 
 namespace ShoppingCart.Infrastructure.Repositories;
 
@@ -21,18 +20,17 @@ public class ProductRepository : IProductRepository
         return result;
     }
 
-    public Task<Product?> GetByIdAsync(int productId)
+    public async Task<Product?> GetByIdAsync(int productId)
     {
-        throw new NotImplementedException();
+        var result = await _productMapper.GetProductByIdAsync(productId);
+
+        return result;
     }
 
-    public Task<List<Product>> GetByIdsAsync(List<int> productIds)
+    public async Task<IEnumerable<Product>> GetMostExpensiveByUserAsync(long userDni)
     {
-        throw new NotImplementedException();
-    }
+        var result = await _productMapper.GetMostExpensiveByUserAsync(userDni);
 
-    public Task<List<Product>> GetMostExpensiveByUserAsync(double userDni)
-    {
-        throw new NotImplementedException();
+        return result;
     }
 }

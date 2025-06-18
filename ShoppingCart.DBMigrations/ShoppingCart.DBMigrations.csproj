@@ -23,6 +23,12 @@
     <Folder Include="DevData\" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Migrations\001_V1.0.0_A03_Create_Indexes.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Migrations\001_V1.0.0_A02_Create_Procedures.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Migrations\001_V1.0.0_A01_Create_Tables.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

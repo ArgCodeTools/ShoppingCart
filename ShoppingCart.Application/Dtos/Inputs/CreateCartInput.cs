@@ -2,5 +2,5 @@
 
 public class CreateCartInput
 {
-    public double UserDni { get; set; }
+    public long UserDni { get; set; }
 }

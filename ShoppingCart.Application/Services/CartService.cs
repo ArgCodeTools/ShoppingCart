@@ -104,12 +104,12 @@ public class CartService : ICartService
         return _mapper.Map<CartDto>(cart);
     }
 
-    public async Task<List<ProductDto>> GetMostExpensiveProductsAsync(GetMostExpensiveProductsInput input)
+    public async Task<IEnumerable<ProductDto>> GetMostExpensiveProductsAsync(GetMostExpensiveProductsInput input)
     {
         await _entityValidationService.ValidateUserExistsAsync(input.UserDni);
 
         var mostExpensiveProducts = await _productRepository.GetMostExpensiveByUserAsync(input.UserDni);
 
-        return _mapper.Map<List<ProductDto>>(mostExpensiveProducts);
+        return _mapper.Map<IEnumerable<ProductDto>>(mostExpensiveProducts);
     }
 }

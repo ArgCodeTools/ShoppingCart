@@ -73,7 +73,7 @@ public class CartController : ControllerBase
 
     // GET /api/cart/user/{dni}/most-expensive-products
     [HttpGet("user/{dni}/most-expensive-products")]
-    public async Task<IActionResult> GetMostExpensiveProducts(double dni)
+    public async Task<IActionResult> GetMostExpensiveProducts(long dni)
     {
         var request = new GetMostExpensiveProductsInput { UserDni = dni };
         var result = await _cartService.GetMostExpensiveProductsAsync(request);
