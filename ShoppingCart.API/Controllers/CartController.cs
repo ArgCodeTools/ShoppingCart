@@ -33,8 +33,8 @@ public class CartController : ControllerBase
     [HttpDelete("{cartId:int}")]
     public async Task<IActionResult> DeleteCart(int cartId)
     {
-        var deleted = await _cartService.DeleteCartAsync(cartId);
-        return deleted ? NoContent() : NotFound();
+        await _cartService.DeleteCartAsync(cartId);
+        return NoContent();
     }
 
     // POST /api/cart/{cartId}/items
