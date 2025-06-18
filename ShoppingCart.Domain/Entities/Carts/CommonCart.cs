@@ -1,7 +1,11 @@
-﻿namespace ShoppingCart.Domain.Entities.Carts;
+﻿using ShoppingCart.Domain.Enums;
+
+namespace ShoppingCart.Domain.Entities.Carts;
 
 public class CommonCart : CartBase
 {
+    public override CartType Type => CartType.Common;
+
     protected override decimal CalculateTotalWithDiscount(decimal subtotal)
     {
         if (subtotal < 200m)

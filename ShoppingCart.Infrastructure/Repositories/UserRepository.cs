@@ -1,17 +1,29 @@
 ﻿using ShoppingCart.Application.Interfaces.Repositories;
 using ShoppingCart.Domain.Entities;
+using ShoppingCart.Infrastructure.Interfaces;
 
 namespace ShoppingCart.Infrastructure.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    public Task<bool> ExistsAsync(double dni)
+    private IUserMapper _userMapper;
+
+    public UserRepository(IUserMapper userMapper)
     {
-        throw new NotImplementedException();
+        _userMapper = userMapper;
     }
 
-    public Task<User?> GetByDniAsync(double dni)
+    public async Task<bool> ExistsAsync(double dni)
     {
-        throw new NotImplementedException();
+        var result = await _userMapper.ExistsAsync(dni);
+
+        return result;
+    }
+
+    public async Task<User?> GetByDniAsync(double dni)
+    {
+        var result = await _userMapper.GetUserByDniAsync(dni);
+
+        return result;
     }
 }

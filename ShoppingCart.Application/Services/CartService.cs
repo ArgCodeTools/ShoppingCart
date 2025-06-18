@@ -46,19 +46,19 @@ public class CartService : ICartService
         
         var cart = _cartFactory.CreateCart(user!, isSpecialDate);
         
-        var createdCart = await _cartRepository.CreateAsync(cart);
+        var cartId = await _cartRepository.CreateAsync(cart);
 
         return new CreateCartOutput
         {
-            CartId = createdCart.Id
+            CartId = cartId
         };
     }
 
-    public async Task<bool> DeleteCartAsync(int cartId)
+    public async Task DeleteCartAsync(int cartId)
     {
         await _entityValidationService.ValidateCartExistsAsync(cartId);
 
-        return await _cartRepository.DeleteAsync(cartId);
+        await _cartRepository.DeleteAsync(cartId);
     }
 
     public async Task<CartDto> AddProductToCartAsync(AddProductToCartInput input)
@@ -69,11 +69,11 @@ public class CartService : ICartService
         var cart = await _cartRepository.GetByIdAsync(input.CartId);
         var product = await _productRepository.GetByIdAsync(input.ProductId);
 
-        cart!.AddItem(product!, input.Quantity);
+        cart!.AddItem(product!);
 
-        var updatedCart = await _cartRepository.UpdateAsync(cart);
+        await _cartRepository.AddItemAsync(cart.Id, product!.Id);
 
-        return _mapper.Map<CartDto>(updatedCart);
+        return _mapper.Map<CartDto>(cart);
     }
 
     public async Task<CartDto> RemoveProductFromCartAsync(RemoveProductFromCartInput input)
@@ -90,9 +90,9 @@ public class CartService : ICartService
             throw new ArgumentException($"El producto con ID {input.ProductId} no está en el carrito");
         }
 
-        var updatedCart = await _cartRepository.UpdateAsync(cart);
+        await _cartRepository.DeleteItemAsync(cart.Id, product!.Id);
 
-        return _mapper.Map<CartDto>(updatedCart);
+        return _mapper.Map<CartDto>(cart);
     }
 
     public async Task<CartDto> GetCartStatusAsync(int cartId)

@@ -5,7 +5,6 @@
 /// </summary>
 public class CartItem
 {
-    public required Product Product { get; set; }
-    public required int Quantity { get; set; }
-    public decimal Subtotal => Product.Price * Quantity;
+    public required Product Product { get; set; }    
+    public decimal Subtotal => Product.Price;
 }

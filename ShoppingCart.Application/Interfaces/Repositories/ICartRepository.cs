@@ -4,9 +4,10 @@ namespace ShoppingCart.Application.Interfaces.Repositories;
 
 public interface ICartRepository
 {
-    Task<CartBase> CreateAsync(CartBase cart);
+    Task<int> CreateAsync(CartBase cart);
     Task<CartBase?> GetByIdAsync(int cartId);
-    Task<bool> DeleteAsync(int cartId);
-    Task<CartBase> UpdateAsync(CartBase cart);
+    Task DeleteAsync(int cartId);
+    Task AddItemAsync(int cartId, int productId);
+    Task DeleteItemAsync(int cartId, int productId);
     Task<bool> ExistsAsync(int cartId);
 }

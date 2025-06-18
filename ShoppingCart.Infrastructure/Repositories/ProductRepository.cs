@@ -1,13 +1,24 @@
 ﻿using ShoppingCart.Application.Interfaces.Repositories;
 using ShoppingCart.Domain.Entities;
+using ShoppingCart.Infrastructure.Interfaces;
+using System.Net;
 
 namespace ShoppingCart.Infrastructure.Repositories;
 
 public class ProductRepository : IProductRepository
 {
-    public Task<bool> ExistsAsync(int productId)
+    private readonly IProductMapper _productMapper;
+
+    public ProductRepository(IProductMapper productMapper)
     {
-        throw new NotImplementedException();
+        _productMapper = productMapper;
+    }
+
+    public async Task<bool> ExistsAsync(int productId)
+    {
+        var result = await _productMapper.ExistsAsync(productId);
+
+        return result;
     }
 
     public Task<Product?> GetByIdAsync(int productId)

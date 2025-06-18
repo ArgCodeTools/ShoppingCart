@@ -1,4 +1,6 @@
-﻿namespace ShoppingCart.Domain.Entities;
+﻿using ShoppingCart.Domain.Enums;
+
+namespace ShoppingCart.Domain.Entities;
 
 /// <summary>
 /// Clase base para el carrito de compras. Contiene la lógica común para agregar, eliminar y actualizar items.
@@ -23,20 +25,19 @@ public abstract class CartBase
     public IReadOnlyList<CartItem> Items => _items.AsReadOnly();
 
     /// <summary>
-    /// Agrega un item con su cantidad al carrito.
+    /// Indica el tipo de carrito.
     /// </summary>
-    public virtual void AddItem(Product product, int quantity)
-    {
-        var existingItem = _items.FirstOrDefault(x => x.Product.Id == product.Id);
+    public abstract CartType Type { get; }
 
-        if (existingItem != null)
-        {
-            existingItem.Quantity += quantity;
-        }
-        else
-        {
-            _items.Add(new CartItem() { Product = product, Quantity = quantity });            
-        }
+    /// <summary>
+    /// Agrega un item al carrito.
+    /// </summary>
+    public virtual void AddItem(Product product)
+    {
+        if (_items.Any(x => x.Product.Id == product.Id))
+            throw new InvalidOperationException($"El producto {product.Id} ya está en el carrito.");
+
+        _items.Add(new CartItem { Product = product });
     }
 
     /// <summary>
@@ -52,28 +53,9 @@ public abstract class CartBase
         return false;
     }
 
-    /// <summary>
-    /// Actualiza la cantidad de un item en el carrito.
-    /// </summary>
-    public virtual bool UpdateItemQuantity(Product product, int quantity)
-    {
-        var item = _items.FirstOrDefault(x => x.Product.Id == product.Id);
-
-        if (item != null)
-        {
-            if (quantity <= 0)
-            {
-                return RemoveItem(product);
-            }
-            item.Quantity = quantity;
-            return true;
-        }
-        return false;
-    }
-
     public virtual decimal CalculateTotal()
     {
-        var itemCount = _items.Sum(x => x.Quantity);
+        var itemCount = _items.Count;
         var subtotal = _items.Sum(x => x.Subtotal);
 
         // Si tiene exactamente 5 productos, descuento del 20%
@@ -92,11 +74,5 @@ public abstract class CartBase
         return subtotal;
     }
 
-    protected abstract decimal CalculateTotalWithDiscount(decimal subtotal);
-
-    public int GetTotalItemCount() => _items.Sum(x => x.Quantity);
-
-    public bool IsEmpty() => !_items.Any();
-
-    public void ClearCart() => _items.Clear();
+    protected abstract decimal CalculateTotalWithDiscount(decimal subtotal);    
 }

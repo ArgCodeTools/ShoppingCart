@@ -7,7 +7,7 @@ namespace ShoppingCart.Application.Interfaces;
 public interface ICartService
 {
     Task<CreateCartOutput> CreateCartAsync(CreateCartInput input);
-    Task<bool> DeleteCartAsync(int cartId);
+    Task DeleteCartAsync(int cartId);
     Task<CartDto> AddProductToCartAsync(AddProductToCartInput input);
     Task<CartDto> RemoveProductFromCartAsync(RemoveProductFromCartInput input);
     Task<CartDto> GetCartStatusAsync(int cartId);
