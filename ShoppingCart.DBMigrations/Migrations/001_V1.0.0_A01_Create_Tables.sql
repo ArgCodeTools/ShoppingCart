@@ -2,15 +2,16 @@
     BEGIN TRANSACTION;
 
     CREATE TABLE [User] (
-        [Id] INT,
+        [Id] INT IDENTITY(1,1),
         [Dni] BIGINT NOT NULL,
         [Name] NVARCHAR(50) NOT NULL,
+        [IsVip] BIT NOT NULL,
         CONSTRAINT [PK_User] PRIMARY KEY ([Id]),
         CONSTRAINT [UQ_User_Dni] UNIQUE ([Dni])
     );
 
     CREATE TABLE [Product] (
-        [Id] INT,
+        [Id] INT IDENTITY(1,1),
         [Name] NVARCHAR(50) NOT NULL,
         [Price] DECIMAL(9, 2) NOT NULL,
         CONSTRAINT [PK_Product] PRIMARY KEY ([Id]),

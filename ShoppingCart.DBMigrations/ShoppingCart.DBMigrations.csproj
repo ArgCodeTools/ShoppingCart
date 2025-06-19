@@ -20,9 +20,12 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.5" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DevData\" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Update="DevData\001_V1.0.0_B02_Add_Users.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="DevData\001_V1.0.0_B01_Add_Products.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Migrations\001_V1.0.0_A03_Create_Indexes.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
