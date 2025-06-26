@@ -4,21 +4,14 @@ using ShoppingCart.Infrastructure.Interfaces;
 
 namespace ShoppingCart.Infrastructure.Mappers;
 
-public class UserMapper : IUserMapper
+public class UserMapper(ISqlExecutor executor) : IUserMapper
 {
-    private readonly ISqlExecutor _executor;
-
-    public UserMapper(ISqlExecutor executor)
-    {
-        _executor = executor;
-    }
-
     public async Task<User?> GetUserByIdAsync(int userId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("p_Id", userId);
 
-        var user = await _executor.QueryFirstOrDefaultAsync<User>("SP_User_GetById", parameters);
+        var user = await executor.QueryFirstOrDefaultAsync<User>("SP_User_GetById", parameters);
 
         return user;
     }
@@ -28,7 +21,7 @@ public class UserMapper : IUserMapper
         var parameters = new DynamicParameters();
         parameters.Add("p_Dni", dni);
 
-        return await _executor.QueryFirstOrDefaultAsync<bool>("SP_User_Exists", parameters);
+        return await executor.QueryFirstOrDefaultAsync<bool>("SP_User_Exists", parameters);
     }
 
     public async Task<User?> GetUserByDniAsync(long dni)
@@ -36,7 +29,7 @@ public class UserMapper : IUserMapper
         var parameters = new DynamicParameters();
         parameters.Add("p_Dni", dni);
 
-        var user = await _executor.QueryFirstOrDefaultAsync<User>("SP_User_GetByDni", parameters);
+        var user = await executor.QueryFirstOrDefaultAsync<User>("SP_User_GetByDni", parameters);
 
         return user;
     }
