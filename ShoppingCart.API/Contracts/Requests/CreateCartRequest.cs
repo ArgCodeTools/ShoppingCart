@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShoppingCart.Contracts.Requests;
+namespace ShoppingCart.API.Contracts.Requests;
 
 public class CreateCartRequest
 {
