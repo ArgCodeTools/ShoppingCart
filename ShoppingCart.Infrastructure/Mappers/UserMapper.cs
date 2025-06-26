@@ -16,7 +16,7 @@ public class UserMapper : IUserMapper
     public async Task<User?> GetUserByIdAsync(int userId)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("p_UserId", userId);
+        parameters.Add("p_Id", userId);
 
         var user = await _executor.QueryFirstOrDefaultAsync<User>("SP_User_GetById", parameters);
 

@@ -2,7 +2,7 @@
     @p_Id INT
 AS
 BEGIN
-    SELECT [Id], [Dni], [Name]
+    SELECT [Id], [Dni], [Name], [IsVip]
     FROM [User]
     WHERE [Id] = @p_Id;
 END
@@ -12,7 +12,7 @@ CREATE PROCEDURE [dbo].[SP_User_GetByDni]
     @p_Dni BIGINT
 AS
 BEGIN
-    SELECT [Id], [Dni], [Name]
+    SELECT [Id], [Dni], [Name], [IsVip]
     FROM [User]
     WHERE [Dni] = @p_Dni;
 END
