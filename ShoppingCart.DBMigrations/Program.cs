@@ -22,8 +22,7 @@ if (Directory.Exists(devDataPath))
     upgraderBuilder = upgraderBuilder.WithScriptsFromFileSystem(devDataPath);
 }
 
-var upgrader = upgraderBuilder.Build();
-var result = upgrader.PerformUpgrade();
+var result = upgraderBuilder.Build().PerformUpgrade();
 
 if (!result.Successful)
 {

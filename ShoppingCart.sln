@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36203.30 d17.14
+VisualStudioVersion = 17.14.36203.30
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.API", "ShoppingCart.API\ShoppingCart.API.csproj", "{C1143B69-A9EC-4B11-B37D-4798BB705208}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.Infrastructure", "ShoppingCart.Infrastructure\ShoppingCart.Infrastructure.csproj", "{AC90D567-BFB3-4622-9A96-94C1FE20ECD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.DBMigrations", "ShoppingCart.DBMigrations\ShoppingCart.DBMigrations.csproj", "{ACA86700-35E1-4407-B965-7D0D9AD35DF5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart.Infrastructure.Tests", "ShoppingCart.Infrastructure.Tests\ShoppingCart.Infrastructure.Tests.csproj", "{33EE12D1-3743-4B3B-9225-B768CA65AC39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +43,16 @@ Global
 		{ACA86700-35E1-4407-B965-7D0D9AD35DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACA86700-35E1-4407-B965-7D0D9AD35DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACA86700-35E1-4407-B965-7D0D9AD35DF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33EE12D1-3743-4B3B-9225-B768CA65AC39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33EE12D1-3743-4B3B-9225-B768CA65AC39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33EE12D1-3743-4B3B-9225-B768CA65AC39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33EE12D1-3743-4B3B-9225-B768CA65AC39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{33EE12D1-3743-4B3B-9225-B768CA65AC39} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7880974-5021-414A-9F7A-E4F3F9597A86}
