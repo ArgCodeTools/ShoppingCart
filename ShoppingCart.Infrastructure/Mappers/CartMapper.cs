@@ -6,31 +6,24 @@ using System.Data;
 
 namespace ShoppingCart.Infrastructure.Mappers;
 
-internal class CartMapper : ICartMapper
+public class CartMapper(ISqlExecutor executor) : ICartMapper
 {
-    private readonly ISqlExecutor _executor;
-
-    public CartMapper(ISqlExecutor executor)
-    {
-        _executor = executor;
-    }
-
     public async Task<CartDbResult?> GetByIdAsync(int cartId)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("p_CartId", cartId);
+        parameters.Add("p_Id", cartId);
 
-        var result = await _executor.QueryFirstOrDefaultAsync<CartDbResult>("SP_Cart_GetById", parameters);        
+        var result = await executor.QueryFirstOrDefaultAsync<CartDbResult>("SP_Cart_GetById", parameters);        
 
         return result;
     }
 
-    public async Task<IEnumerable<ProductDBResult>> GetProductsByCartIdAsync(int cartId)
+    public async Task<IEnumerable<ProductDbResult>> GetProductsByCartIdAsync(int cartId)
     {
         var parameters = new DynamicParameters();
         parameters.Add("p_CartId", cartId);
 
-        var products = await _executor.QueryAsync<ProductDBResult>("SP_CartItem_GetByCartId", parameters);
+        var products = await executor.QueryAsync<ProductDbResult>("SP_CartItem_GetByCartId", parameters);
 
         return products;
     }
@@ -38,17 +31,17 @@ internal class CartMapper : ICartMapper
     public async Task<bool> ExistsAsync(int cartId)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("p_CartId", cartId);
+        parameters.Add("p_Id", cartId);
 
-        return await _executor.QueryFirstOrDefaultAsync<bool>("SP_Cart_Exists", parameters);
+        return await executor.QueryFirstOrDefaultAsync<bool>("SP_Cart_Exists", parameters);
     }
 
     public async Task DeleteAsync(int cartId)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("p_CartId", cartId);
+        parameters.Add("p_Id", cartId);
 
-        await _executor.ExecuteAsync("SP_Cart_Remove", parameters);
+        await executor.ExecuteAsync("SP_Cart_Remove", parameters);
     }
 
     public async Task<int> CreateAsync(CartBase cart)
@@ -58,7 +51,7 @@ internal class CartMapper : ICartMapper
         parameters.Add("p_CartTypeId", (int)cart.Type);
         parameters.Add("p_CartId", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-        await _executor.ExecuteAsync("SP_Cart_Insert", parameters);
+        await executor.ExecuteAsync("SP_Cart_Insert", parameters);
 
         return parameters.Get<int>("p_CartId");
     }
@@ -69,7 +62,7 @@ internal class CartMapper : ICartMapper
         parameters.Add("p_CartId", cartId);
         parameters.Add("p_ProductId", productId);
 
-        await _executor.ExecuteAsync("SP_CartItem_Add", parameters);
+        await executor.ExecuteAsync("SP_CartItem_Add", parameters);
     }
 
     public async Task DeleteItemAsync(int cartId, int productId)
@@ -78,6 +71,6 @@ internal class CartMapper : ICartMapper
         parameters.Add("p_CartId", cartId);
         parameters.Add("p_ProductId", productId);
 
-        await _executor.ExecuteAsync("SP_CartItem_Remove", parameters);
+        await executor.ExecuteAsync("SP_CartItem_Remove", parameters);
     }
 }

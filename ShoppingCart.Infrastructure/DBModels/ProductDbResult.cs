@@ -1,6 +1,6 @@
 ﻿namespace ShoppingCart.Infrastructure.DBModels;
 
-public class ProductDBResult
+public class ProductDbResult
 {
     public int Id { get; set; }
     public required string Name { get; set; }

@@ -34,7 +34,7 @@ public class UserMapper : IUserMapper
     public async Task<User?> GetUserByDniAsync(long dni)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("p_UserId", dni);
+        parameters.Add("p_Dni", dni);
 
         var user = await _executor.QueryFirstOrDefaultAsync<User>("SP_User_GetByDni", parameters);
 

@@ -6,7 +6,7 @@ namespace ShoppingCart.Infrastructure.Interfaces;
 public interface ICartMapper
 {
     Task<CartDbResult?> GetByIdAsync(int cartId);
-    Task<IEnumerable<ProductDBResult>> GetProductsByCartIdAsync(int cartId);
+    Task<IEnumerable<ProductDbResult>> GetProductsByCartIdAsync(int cartId);
     Task<bool> ExistsAsync(int cartId);
     Task DeleteAsync(int cartId);
     Task<int> CreateAsync(CartBase cart);

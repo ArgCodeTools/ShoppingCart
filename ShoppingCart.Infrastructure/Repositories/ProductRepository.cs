@@ -4,32 +4,25 @@ using ShoppingCart.Infrastructure.Interfaces;
 
 namespace ShoppingCart.Infrastructure.Repositories;
 
-public class ProductRepository : IProductRepository
+public class ProductRepository(IProductMapper productMapper) : IProductRepository
 {
-    private readonly IProductMapper _productMapper;
-
-    public ProductRepository(IProductMapper productMapper)
-    {
-        _productMapper = productMapper;
-    }
-
     public async Task<bool> ExistsAsync(int productId)
     {
-        var result = await _productMapper.ExistsAsync(productId);
+        var result = await productMapper.ExistsAsync(productId);
 
         return result;
     }
 
     public async Task<Product?> GetByIdAsync(int productId)
     {
-        var result = await _productMapper.GetProductByIdAsync(productId);
+        var result = await productMapper.GetProductByIdAsync(productId);
 
         return result;
     }
 
     public async Task<IEnumerable<Product>> GetMostExpensiveByUserAsync(long userDni)
     {
-        var result = await _productMapper.GetMostExpensiveByUserAsync(userDni);
+        var result = await productMapper.GetMostExpensiveByUserAsync(userDni);
 
         return result;
     }

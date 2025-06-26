@@ -16,7 +16,7 @@ public class ProductMapper : IProductMapper
     public async Task<bool> ExistsAsync(int productId)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("p_ProductId", productId);
+        parameters.Add("p_Id", productId);
 
         return await _executor.QueryFirstOrDefaultAsync<bool>("SP_Product_Exists", parameters);
     }

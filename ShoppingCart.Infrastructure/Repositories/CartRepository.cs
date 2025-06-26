@@ -4,55 +4,45 @@ using ShoppingCart.Domain.Entities.Carts;
 using ShoppingCart.Domain.Enums;
 using ShoppingCart.Infrastructure.Interfaces;
 
-public class CartRepository : ICartRepository
+namespace ShoppingCart.Infrastructure.Repositories;
+
+public class CartRepository(ICartMapper cartMapper, IUserMapper userMapper) : ICartRepository
 {
-    private readonly ICartMapper _cartMapper;
-    private readonly IUserMapper _userMapper;
-
-    public CartRepository(ICartMapper cartMapper, IUserMapper userMapper)
-    {
-        _cartMapper = cartMapper;
-        _userMapper = userMapper;
-    }
-
     public async Task AddItemAsync(int cartId, int productId)
     {
-        await _cartMapper.AddItemAsync(cartId, productId);     
+        await cartMapper.AddItemAsync(cartId, productId);     
     }
 
     public async Task DeleteItemAsync(int cartId, int productId)
     {
-        await _cartMapper.DeleteItemAsync(cartId, productId);
+        await cartMapper.DeleteItemAsync(cartId, productId);
     }
 
     public async Task<int> CreateAsync(CartBase cart)
     {
-        return await _cartMapper.CreateAsync(cart);
+        return await cartMapper.CreateAsync(cart);
     }
 
     public async Task DeleteAsync(int cartId)
     {
-        await _cartMapper.DeleteAsync(cartId);
+        await cartMapper.DeleteAsync(cartId);
     }
-
-
 
     public async Task<bool> ExistsAsync(int cartId)
     {
-        return await _cartMapper.ExistsAsync(cartId);
+        return await cartMapper.ExistsAsync(cartId);
     }
 
     public async Task<CartBase?> GetByIdAsync(int cartId)
     {
-        var cartDbResult = await _cartMapper.GetByIdAsync(cartId);
+        var cartDbResult = await cartMapper.GetByIdAsync(cartId);
 
         if (cartDbResult is null)
             return null;
 
-        var user = await _userMapper.GetUserByIdAsync(cartDbResult!.UserId);
+        var user = await userMapper.GetUserByIdAsync(cartDbResult.UserId);
 
-
-        CartBase cart = (CartType)cartDbResult!.CartTypeId switch
+        CartBase cart = (CartType)cartDbResult.CartTypeId switch
         {
             CartType.Vip => new VipCart { User = user! },
             CartType.SpecialDate => new SpecialDateCart { User = user! },
@@ -69,7 +59,7 @@ public class CartRepository : ICartRepository
 
     private async Task FillProducts(int cartId, CartBase cart)
     {
-        var products = await _cartMapper.GetProductsByCartIdAsync(cartId);
+        var products = await cartMapper.GetProductsByCartIdAsync(cartId);
 
         foreach (var productDbResult in products)
         {

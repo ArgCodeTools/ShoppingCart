@@ -4,25 +4,18 @@ using ShoppingCart.Infrastructure.Interfaces;
 
 namespace ShoppingCart.Infrastructure.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository(IUserMapper userMapper) : IUserRepository
 {
-    private IUserMapper _userMapper;
-
-    public UserRepository(IUserMapper userMapper)
-    {
-        _userMapper = userMapper;
-    }
-
     public async Task<bool> ExistsAsync(long dni)
     {
-        var result = await _userMapper.ExistsAsync(dni);
+        var result = await userMapper.ExistsAsync(dni);
 
         return result;
     }
 
     public async Task<User?> GetByDniAsync(long dni)
     {
-        var result = await _userMapper.GetUserByDniAsync(dni);
+        var result = await userMapper.GetUserByDniAsync(dni);
 
         return result;
     }

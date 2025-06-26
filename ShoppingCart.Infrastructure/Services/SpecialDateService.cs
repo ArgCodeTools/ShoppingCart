@@ -1,20 +1,15 @@
 ﻿using Microsoft.Extensions.Options;
 using ShoppingCart.Application.Interfaces;
-using ShoppingCart.Infrastructure.Models;
+using ShoppingCart.Infrastructure.Configuration;
 
 namespace ShoppingCart.Infrastructure.Services;
 
 /// <summary>
 /// Implementación del servicio de fechas especiales usando configuración de appsettings.
 /// </summary>
-public class SpecialDateService : ISpecialDateService
+public class SpecialDateService(IOptions<SpecialDateConfiguration> configuration) : ISpecialDateService
 {
-    private readonly SpecialDateConfiguration _configuration;
-
-    public SpecialDateService(IOptions<SpecialDateConfiguration> configuration)
-    {
-        _configuration = configuration.Value;
-    }
+    private readonly SpecialDateConfiguration _configuration = configuration.Value;
 
     public bool IsSpecialDate()
     {
