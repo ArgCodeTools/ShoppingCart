@@ -1,4 +1,4 @@
-﻿namespace ShoppingCart.Application.DTOs.Outputs;
+﻿namespace ShoppingCart.Application.Dtos.Output;
 
 public class CreateCartOutput
 {

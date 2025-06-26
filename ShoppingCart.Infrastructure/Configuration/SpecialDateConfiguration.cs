@@ -1,4 +1,4 @@
-﻿namespace ShoppingCart.Infrastructure.Models;
+﻿namespace ShoppingCart.Infrastructure.Configuration;
 
 public class SpecialDateConfiguration
 {

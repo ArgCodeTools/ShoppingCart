@@ -1,6 +1,6 @@
 ﻿using ShoppingCart.Application.DTOs;
 using ShoppingCart.Application.DTOs.Inputs;
-using ShoppingCart.Application.DTOs.Outputs;
+using ShoppingCart.Application.Dtos.Output;
 
 namespace ShoppingCart.Application.Interfaces;
 

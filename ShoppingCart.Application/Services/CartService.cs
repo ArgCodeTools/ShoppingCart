@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ShoppingCart.Application.DTOs;
 using ShoppingCart.Application.DTOs.Inputs;
-using ShoppingCart.Application.DTOs.Outputs;
+using ShoppingCart.Application.Dtos.Output;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.Interfaces.Repositories;
 using ShoppingCart.Domain.Interfaces;
