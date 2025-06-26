@@ -13,38 +13,88 @@ public class UserMapperTests : IClassFixture<TestDatabaseEnvironment>
     }
 
 
-    [Fact]
-    public async Task GetUserByIdAsync_WhenUserExists_ShouldReturnUser()
+    [Theory]
+    [InlineData(2, 1122334455, "Roberto Gomez", true)]
+    [InlineData(3, 66778899, "Florinda Meza", false)]
+    public async Task GetUserByIdAsync_WhenUserExists_ShouldReturnUser(int id, long dni, string name, bool isVip)
     {
-        // Arrange
-        const int existentUserId = 2;
-
         // Act
-        var user = await _userMapper.GetUserByIdAsync(existentUserId);
+        var user = await _userMapper.GetUserByIdAsync(id);
 
         // Assert
         Assert.NotNull(user);
-        Assert.Equal(existentUserId, user.Id);
-        Assert.Equal(1122334455, user.Dni);
-        Assert.Equal("Roberto Gomez", user.Name);
-        Assert.True(user.IsVip);
+        Assert.Equal(id, user.Id);
+        Assert.Equal(dni, user.Dni);
+        Assert.Equal(name, user.Name);
+        Assert.Equal(isVip, user.IsVip);
     }
 
     [Fact]
-    public async Task GetUserByIdAsync_WhenUserExistsAndIsNotVip_ShouldReturnUser()
+    public async Task GetUserByIdAsync_WhenUserDoesNotExist_ShouldReturnNull()
     {
         // Arrange
-        const int existentUserId = 3;
+        int nonExistentUserId = 999;
 
         // Act
-        var user = await _userMapper.GetUserByIdAsync(existentUserId);
+        var user = await _userMapper.GetUserByIdAsync(nonExistentUserId);
+
+        // Assert
+        Assert.Null(user);
+    }
+
+    [Fact]
+    public async Task ExistsAsync_WithExistingDni_ShouldReturnTrue()
+    {
+        // Arrange
+        long existingDni = 1122334455;
+
+        // Act
+        var exists = await _userMapper.ExistsAsync(existingDni);
+
+        // Assert
+        Assert.True(exists);
+    }
+
+    [Fact]
+    public async Task ExistsAsync_WithNonExistingDni_ShouldReturnFalse()
+    {
+        // Arrange
+        long nonExistingDni = 5544332211;
+
+        // Act
+        var exists = await _userMapper.ExistsAsync(nonExistingDni);
+
+        // Assert
+        Assert.False(exists);
+    }
+
+    [Theory]
+    [InlineData(2, 1122334455, "Roberto Gomez", true)]
+    [InlineData(3, 66778899, "Florinda Meza", false)]
+    public async Task GetUserByDniAsync_WhenUserExists_ShouldReturnUser(int id, long dni, string name, bool isVip)
+    {
+        // Act
+        var user = await _userMapper.GetUserByDniAsync(dni);
 
         // Assert
         Assert.NotNull(user);
-        Assert.Equal(existentUserId, user.Id);
-        Assert.Equal(66778899, user.Dni);
-        Assert.Equal("Florinda Meza", user.Name);
-        Assert.False(user.IsVip);
+        Assert.Equal(id, user.Id);
+        Assert.Equal(dni, user.Dni);
+        Assert.Equal(name, user.Name);
+        Assert.Equal(isVip, user.IsVip);
+    }
+
+    [Fact]
+    public async Task GetUserByDniAsync_WhenUserDoesNotExist_ShouldReturnNull()
+    {
+        // Arrange
+        int nonExistentDni = 999;
+
+        // Act
+        var user = await _userMapper.GetUserByDniAsync(nonExistentDni);
+
+        // Assert
+        Assert.Null(user);
     }
 }
 
