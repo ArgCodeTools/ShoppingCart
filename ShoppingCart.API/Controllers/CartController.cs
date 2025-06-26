@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using ShoppingCart.API.Contracts.Requests;
 using ShoppingCart.Application.DTOs.Inputs;
 using ShoppingCart.Application.Interfaces;
-using ShoppingCart.Contracts.Requests;
 
 namespace ShoppingCart.API.Controllers;
 

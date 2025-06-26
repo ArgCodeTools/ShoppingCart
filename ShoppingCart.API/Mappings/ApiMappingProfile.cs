@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using ShoppingCart.API.Contracts.Requests;
+using ShoppingCart.API.Contracts.Responses;
 using ShoppingCart.Application.DTOs.Inputs;
-using ShoppingCart.Application.DTOs.Outputs;
-using ShoppingCart.Contracts.Requests;
-using ShoppingCart.Contracts.Responses;
+using ShoppingCart.Application.Dtos.Output;
 
 namespace ShoppingCart.API.Mappings;
 
