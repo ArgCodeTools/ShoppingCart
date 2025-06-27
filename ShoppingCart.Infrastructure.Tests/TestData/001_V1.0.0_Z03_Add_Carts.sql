@@ -4,7 +4,8 @@ INSERT INTO [dbo].[Cart] ([Id], [UserId], [CartTypeId]) VALUES
 (20, 2, 1),
 (21, 2, 2),
 (22, 3, 3),
-(23, 3, 2)
+(23, 3, 2),
+(24, 3, 1)
 
 SET IDENTITY_INSERT [dbo].[Cart] OFF;
 

@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using ShoppingCart.Domain.Entities;
+using ShoppingCart.Domain.Enums;
 using ShoppingCart.Infrastructure.DBModels;
 using ShoppingCart.Infrastructure.Interfaces;
 using System.Data;
@@ -44,11 +44,11 @@ public class CartMapper(ISqlExecutor executor) : ICartMapper
         await executor.ExecuteAsync("SP_Cart_Remove", parameters);
     }
 
-    public async Task<int> CreateAsync(CartBase cart)
+    public async Task<int> CreateAsync(int userId, CartType cartType)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("p_UserId", cart.User.Id);
-        parameters.Add("p_CartTypeId", (int)cart.Type);
+        parameters.Add("p_UserId", userId);
+        parameters.Add("p_CartTypeId", (int)cartType);
         parameters.Add("p_CartId", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
         await executor.ExecuteAsync("SP_Cart_Insert", parameters);

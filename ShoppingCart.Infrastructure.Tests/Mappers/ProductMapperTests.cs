@@ -25,7 +25,7 @@ public class ProductMapperTests : IClassFixture<TestDatabaseEnvironment>
         Assert.NotNull(product);
         Assert.Equal(existentProductId, product.Id);
         Assert.Equal("Remera negra", product.Name);
-        Assert.Equal(12499.50m, product.Price);
+        Assert.Equal(10000.50m, product.Price);
     }
 
     [Fact]

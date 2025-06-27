@@ -20,7 +20,7 @@ public class CartRepository(ICartMapper cartMapper, IUserMapper userMapper) : IC
 
     public async Task<int> CreateAsync(CartBase cart)
     {
-        return await cartMapper.CreateAsync(cart);
+        return await cartMapper.CreateAsync(cart.User.Id, cart.Type);
     }
 
     public async Task DeleteAsync(int cartId)
