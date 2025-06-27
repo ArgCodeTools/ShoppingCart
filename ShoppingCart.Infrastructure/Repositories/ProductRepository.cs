@@ -22,7 +22,7 @@ public class ProductRepository(IProductMapper productMapper) : IProductRepositor
 
     public async Task<IEnumerable<Product>> GetMostExpensiveByUserAsync(long userDni)
     {
-        var result = await productMapper.GetMostExpensiveByUserAsync(userDni);
+        var result = await productMapper.GetMostExpensiveByUserAsync(userDni, top: 4);
 
         return result;
     }
