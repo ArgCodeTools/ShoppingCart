@@ -1,4 +1,5 @@
 using ShoppingCart.API.Mappings;
+using ShoppingCart.API.Middlewares;
 using ShoppingCart.Application;
 using ShoppingCart.Infrastructure;
 
@@ -14,6 +15,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddAutoMapper(cfg => { cfg.AddProfile<ApiMappingProfile>(); });
 
 var app = builder.Build();
+
+app.UseCustomExceptionMiddleware();
 
 if (app.Environment.IsDevelopment())
 {
