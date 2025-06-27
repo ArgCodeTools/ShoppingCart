@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.API.Contracts.Requests;
+using ShoppingCart.API.Contracts.Responses;
 using ShoppingCart.Application.DTOs.Inputs;
 using ShoppingCart.Application.Interfaces;
 
@@ -46,7 +47,9 @@ public class CartController : ControllerBase
 
         var result = await _cartService.AddProductToCartAsync(input);
 
-        return Ok(result);
+        var response = _mapper.Map<CartResponse>(result);
+
+        return Ok(response);
     }
 
     // DELETE /api/cart/{cartId}/items/{productId}
@@ -60,7 +63,10 @@ public class CartController : ControllerBase
         };
 
         var result = await _cartService.RemoveProductFromCartAsync(input);
-        return Ok(result);
+
+        var response = _mapper.Map<CartResponse>(result);
+
+        return Ok(response);
     }
 
     // GET /api/cart/{cartId}
@@ -68,7 +74,10 @@ public class CartController : ControllerBase
     public async Task<IActionResult> GetCartStatus(int cartId)
     {
         var result = await _cartService.GetCartStatusAsync(cartId);
-        return Ok(result);
+
+        var response = _mapper.Map<CartResponse>(result);
+
+        return Ok(response);
     }
 
     // GET /api/cart/user/{dni}/most-expensive-products
